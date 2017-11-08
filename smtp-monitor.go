@@ -30,7 +30,24 @@ const (
 	// EICAR : Anti-Virus Test File (https://en.wikipedia.org/wiki/EICAR_test_file)
 	EICAR = "X5O!P%@AP[4\\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*"
 	// GTUBE : Generic Test for Unsolicited Bulk Email (https://en.wikipedia.org/wiki/GTUBE)
-	GTUBE = "XJS*C4JDBQADN1.NSBN3*2IDNEN*GTUBE-STANDARD-ANTI-UBE-TEST-EMAIL*C.34X"
+	GTUBE    = "XJS*C4JDBQADN1.NSBN3*2IDNEN*GTUBE-STANDARD-ANTI-UBE-TEST-EMAIL*C.34X"
+	helpText = `This smtp backend check expects two mandatory arguments:
+
+1. ip address (IPv4-mapped IPv6 addresses for IPv4, e.g. "":ffff:a.b.c.d")
+2. tcp port number
+
+The rest of the program is controlled by environment variables (defaults in parenthesis):
+
+* DEBUG:     when set to anything than 0 enables debugging output to syslog (0)
+* SENDER:    mail sender (sender@example.com)
+* RECIPIENT: mail recipient (recipient@example.com)
+* SUBJECT:   mail subject ("F5 Loadbalancer Keepalive Test")
+* BODY:      mail body ("")
+* STARTTLS:  try STARTTLS without certificate verification when set (NOT SET)
+* HELO:      use value for HELO/EHLO (localhost)
+* TESTAV:    add EICAR test virus to body when set (NOT SET)
+* TESTSPAM:  add GTUBE spam string to body when set (NOT SET)
+`
 )
 
 var (
@@ -48,7 +65,12 @@ var (
 
 func init() {
 	var err error
-	// exract commandline arguments
+	// Set custom help message
+	flag.Usage = func() {
+		fmt.Fprintln(os.Stderr, helpText)
+		os.Exit(127)
+	}
+	// extract commandline arguments
 	flag.Parse()
 	if flag.NArg() < 2 {
 		log.Fatalf("Only got %d commandline arguments, expected at least two", flag.NArg())
