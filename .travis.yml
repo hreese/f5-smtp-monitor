@@ -1,0 +1,11 @@
+language: go
+
+go:
+    - master
+
+install:
+    - go get .
+
+script:
+    - go build -ldflags "-s -w" github.com/hreese/f5-smtp-monitor
+
