@@ -5,7 +5,7 @@ install:
 - go get .
 script:
 - GOOS=linux GOARCH=amd64 go build -ldflags "-s -w" github.com/hreese/f5-smtp-monitor
-- tar cvjf "f5-smtp-monitor-$TRAVIS_TAG.tar.bz2" f5-smtp-monitor README.md
+- tar cjf "f5-smtp-monitor-$TRAVIS_TAG.tar.bz2" f5-smtp-monitor README.md
 deploy:
   provider: releases
   api_key:
