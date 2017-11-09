@@ -27,6 +27,16 @@ The rest of the program is controlled by environment variables (defaults in pare
 * TESTSPAM:  add GTUBE spam string to body when set (NOT SET)
 ```
 
+# How to build
+
+Install [Go](https://golang.org) on your build machine.
+
+```sh
+go get -v github.com/hreese/f5-smtp-monitor
+cd $GOPATH/src/github.com/hreese/f5-smtp-monitor
+GOOS=linux GOARCH=amd64 go build -ldflags "-s -w"
+```
+
 # Setting up the monitor on BIG-IP F5
 
 TBD…
