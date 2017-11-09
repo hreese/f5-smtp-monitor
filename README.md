@@ -1,3 +1,7 @@
+![build status](https://travis-ci.org/hreese/f5-smtp-monitor.svg?branch=master)
+
+# F5-SMTP-Monitor
+
 The builtin smtp liveness check on BIG-IP F5 has two problems:
 
 1. it only checks if the SMTP server responds to connections and HELO/EHLO
