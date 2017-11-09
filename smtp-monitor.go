@@ -36,7 +36,7 @@ const (
 	GTUBE    = "XJS*C4JDBQADN1.NSBN3*2IDNEN*GTUBE-STANDARD-ANTI-UBE-TEST-EMAIL*C.34X"
 	helpText = `This smtp backend check expects two mandatory arguments:
 
-1. ip address (IPv4-mapped IPv6 addresses for IPv4, e.g. "":ffff:a.b.c.d")
+1. ip address (IPv4-mapped IPv6 address for IPv4 address, e.g. "":ffff:a.b.c.d")
 2. tcp port number
 
 The rest of the program is controlled by environment variables (defaults in parenthesis):
@@ -66,6 +66,7 @@ var (
 	}
 )
 
+// setup
 func init() {
 	var err error
 	// Set custom help message
@@ -128,8 +129,9 @@ func DebugLog(format string, args ...interface{}) {
 	}
 }
 
+// run test
 func main() {
-	// this expects BIGIP F5 style: ipv6 or ipv4-in-v6-address
+	// wrap ipaddress in [] because this is guaranteed to be an ipv6-address
 	connectstring := fmt.Sprintf("[%s]:%s", os.Args[1], os.Args[2])
 
 	// Connect to the remote SMTP server.
@@ -141,7 +143,8 @@ func main() {
 	DebugLog("Connected to %s", connectstring)
 
 	// use STARTTLS
-	// we don't care for certificate validity (too much complexity for this test)
+	// we don't care for certificate validity (it adds too much complexity for this test)
+	// if we can establish any TLS connection, we're happy here
 	if os.Getenv("STARTTLS") != "" {
 		DebugLog("STARTTLS sent")
 		err = c.StartTLS(&tls.Config{
