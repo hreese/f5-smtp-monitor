@@ -14,6 +14,8 @@ import (
 	"os"
 	"text/template"
 	"time"
+
+	"github.com/satori/go.uuid"
 )
 
 // MailConfig stores customization for testmail
@@ -21,12 +23,13 @@ type MailConfig struct {
 	Sender    string
 	Recipient string
 	Date      string
+	MessageID string
 	Subject   string
 	Mailbody  string
 }
 
 const (
-	bodyTemplateText = "To: {{.Recipient}}\r\nFrom: {{.Sender}}\r\nDate: {{.Date}}\r\nPrecedence: bulk\r\nAuto-Submitted: auto-generated\r\nSubject: {{.Subject}}\r\n\r\n{{.Mailbody}}\r\n"
+	bodyTemplateText = "To: {{.Recipient}}\r\nFrom: {{.Sender}}\r\nDate: {{.Date}}\r\nPrecedence: bulk\r\nAuto-Submitted: auto-generated\r\nMessage-ID: <{{.MessageID}}>\r\nSubject: {{.Subject}}\r\n\r\n{{.Mailbody}}\r\n"
 	// EICAR : Anti-Virus Test File (https://en.wikipedia.org/wiki/EICAR_test_file)
 	EICAR = "X5O!P%@AP[4\\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*"
 	// GTUBE : Generic Test for Unsolicited Bulk Email (https://en.wikipedia.org/wiki/GTUBE)
@@ -83,6 +86,12 @@ func init() {
 			syslogWriter = ioutil.Discard
 		}
 	}
+	// generate message-id
+	hostname, err := os.Hostname()
+	if err != nil {
+		hostname = "f5-keepalive-test"
+	}
+	mailconfig.MessageID = uuid.NewV4().String() + "@" + hostname
 	// get sender
 	if os.Getenv("SENDER") != "" {
 		mailconfig.Sender = os.Getenv("SENDER")
