@@ -74,3 +74,5 @@ blackhole:
   domains = blackhole.example.com
   data    = :blackhole:
 ```
+
+Add your loadbalancer interfaces to `smtp_reserve_hosts` to make sure your backend tests succeed even under heavy load.
