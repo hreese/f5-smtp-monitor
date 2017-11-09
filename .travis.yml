@@ -5,14 +5,13 @@ install:
 - go get .
 script:
 - GOOS=linux GOARCH=amd64 go build -ldflags "-s -w" github.com/hreese/f5-smtp-monitor
+- tar cvjf "f5-smtp-monitor-$TRAVIS_TAG.tar.bz2" f5-smtp-monitor README.md
 deploy:
   provider: releases
   api_key:
     secure: LAGAWGQGuRabJLQFEjRkHyE0qy/klLaUuBb6NkX4TOLyW8Z7AzibXMAD1tvVK+8PJYktZkoliHFYBJytPWCJmjlZBaqa+c9rysEfbMILWqu+HoyCeLB8F3shdKF/Yoxex5BjfTb9lcZpk9caCDtkQmAesKOwG7+LfnY21nQeVC4j2hw7jj+xDI7FJjcMRd279t/5/SGapnQ+a/FcDbt73YYxQJo/qmWE2zHxyntxJ2InldonBO9gh3lyZa1J8yu9cdkUo5G5Zw2GAEimjB3MJ71wyab4PVanRb7l/YNMlbHoTnmiIXQL0ftMH897G1DDeNSsucRSgmlxQlEiATf54ym1hc2fA2J3bWj5fy1HBAfnzHlBoN0OpWqZSqcwnzIWItf7LAkSD/Xblg4RoIfc0tmILpoClhSXfgRqhoKJA4I7Bw/dJoQXvC8wwVY4Dk1OGJhVj5jcn+Ueb0w3wQqKr6UXHhav5X9drEQWxbkBa4shy4Rud4MUgttCGpdfbFGGaidY0ZGbGd2sNgNnKalVtlw9ciid2PbpPkyb88GxgSQ+jFLHPEraoKGWhgMBawrm/v6L3gwZay4UjDwNQ3bFDdpZJqT5JMTzy87hvpv5PaaTi+IcXUET56NEARvZlNvsHKIovqOV78yYEaGANLzN8csax9vthh6AK6qnQWGQLRw=
   file: "f5-smtp-monitor-$TRAVIS_TAG.tar.bz2"
   skip_cleanup: true
-  before_deploy:
-    - tar cvjf "f5-smtp-monitor-$TRAVIS_TAG.tar.bz2" f5-smtp-monitor README.md
   on:
     tags: true
     repo: hreese/f5-smtp-monitor
