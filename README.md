@@ -8,7 +8,8 @@ The builtin smtp liveness check on BIG-IP F5 has two problems:
 2. It contains a [bug](https://support.f5.com/csp/article/K99840695) that makes exim send
    a TCP RST resulting on backend being marked as down. This is fixed in newer releases.
 
-This test also detects breakage in later stages like contect checks by sending a test email.
+This test also detects breakage in later stages like behavior checks (spam detection) and
+content checks (for example antivirus) by sending a test email.
 
 Check the buildin help for up-to-date information on switches and usage:
 
