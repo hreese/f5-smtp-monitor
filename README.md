@@ -53,7 +53,8 @@ GOOS=linux GOARCH=amd64 go build -ldflags "-s -w"
 
 # Setting up the monitor on BIG-IP F5
 
-TBD…
+The F5-setup is firmware specific. Check the **BIG-IP Local Traffic Manager: Monitors Reference**
+for your version for details.
 
 ## Configuration variables
 
