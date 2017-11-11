@@ -1,4 +1,4 @@
-![build status](https://travis-ci.org/hreese/f5-smtp-monitor.svg?branch=master)
+[![build status](https://travis-ci.org/hreese/f5-smtp-monitor.svg?branch=master)](https://travis-ci.org/hreese/f5-smtp-monitor)
 
 # F5-SMTP-Monitor
 
