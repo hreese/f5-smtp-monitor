@@ -11,7 +11,7 @@ The builtin smtp monitor on BIG-IP F5 has two problems:
 
 This monitor also detects breakage in later stages like behavior checks (spam detection) and
 content checks (for example antivirus) by actually sending a test email. This is basically a
-simple SMTP ciient that adheres to the BIG-IP calling- and reporting conventions.
+simple SMTP client that adheres to the BIG-IP calling- and reporting conventions.
 
 Check the buildin help for up-to-date information on switches and usage:
 
