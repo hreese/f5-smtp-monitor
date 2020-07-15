@@ -13,7 +13,7 @@ This monitor also detects breakage in later stages like behavior checks (spam de
 content checks (for example antivirus) by actually sending a test email. This is basically a
 simple SMTP client that adheres to the BIG-IP calling- and reporting conventions.
 
-Check the buildin help for up-to-date information on switches and usage:
+Check the builtin help for up-to-date information on switches and usage:
 
 ```sh
 $ f5-smtp-monitor --help
