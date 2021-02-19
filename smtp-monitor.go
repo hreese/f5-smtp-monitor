@@ -15,7 +15,7 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/satori/go.uuid"
+	uuid "github.com/satori/go.uuid"
 )
 
 // MailConfig stores customization for testmail
@@ -56,6 +56,7 @@ var (
 	syslogWriter io.Writer
 	bodyTemplate = template.Must(template.New("mailbody").Parse(bodyTemplateText))
 	bodyText     bytes.Buffer
+	hostname     string
 	mailconfig   = MailConfig{
 		Sender:    "sender@example.com",
 		Recipient: "recipient@example.com",
@@ -82,6 +83,11 @@ func XOR(cleartext, key []byte) []byte {
 // setup
 func init() {
 	var err error
+	// get hostname
+	hostname, err = os.Hostname()
+	if err != nil {
+		hostname = "f5-keepalive-test.localdomain"
+	}
 	// Set custom help message
 	flag.Usage = func() {
 		fmt.Fprintln(os.Stderr, helpText)
@@ -103,10 +109,6 @@ func init() {
 		}
 	}
 	// generate message-id
-	hostname, err := os.Hostname()
-	if err != nil {
-		hostname = "f5-keepalive-test"
-	}
 	mailconfig.MessageID = uuid.NewV4().String() + "@" + hostname
 	// get sender
 	if os.Getenv("SENDER") != "" {
@@ -174,10 +176,12 @@ func main() {
 	}
 
 	// set custom HELO/EHLO
-	if os.Getenv("HELO") != "" {
-		c.Hello(os.Getenv("HELO"))
-		DebugLog("HELO/EHLO string set to %s", os.Getenv("HELO"))
+	var hellostring = os.Getenv("HELO")
+	if hellostring == "" {
+		hellostring = hostname
 	}
+	c.Hello(hellostring)
+	DebugLog("HELO/EHLO string set to %s", os.Getenv("HELO"))
 
 	// Set the sender
 	if err = c.Mail(mailconfig.Sender); err != nil {
