@@ -29,7 +29,7 @@ The rest of the program is controlled by environment variables (defaults in pare
 * RECIPIENT: mail recipient (recipient@example.com)
 * SUBJECT:   mail subject ("F5 Loadbalancer Keepalive Test")
 * BODY:      mail body ("")
-* STARTTLS:  try STARTTLS without certificate verification when set (NOT SET)
+* TLS:       set TLS mode: NONE/PLAIN, STARTTLS or TLS (no certificate verification when TLS* set) (NONE)
 * HELO:      use value for HELO/EHLO (os.Hostname() or "f5-keepalive-test.localdomain" on error)
 * TESTAV:    add EICAR test virus to body when set (NOT SET)
 * TESTSPAM:  add GTUBE spam string to body when set (NOT SET)
