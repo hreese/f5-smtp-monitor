@@ -63,7 +63,7 @@ for your version for details.
 * `RECIPIENT` sets both the *SMTP RCPT TO* and the *To:* header. Pick a sensible value that matches your local mail setup.
 * `SUBJECT` sets the *Subject:* header.
 * `BODY` sets the mail body.
-* `STARTTLS` enforces STARTTLS encryption but won't verify certificates to reduce complexity.
+* `TLS` set TLS mode: NONE/PLAIN, STARTTLS or TLS (no certificate verification when TLS* set).
 * `HELO` sets *SMTP HELO/EHLO*. Pick a sensible value.
 * Setting `TESTAV` will add the [EICAR](https://en.wikipedia.org/wiki/EICAR_test_file) antivirus test string to the mail body. It will also change to test's logic to succeed if server rejects our mail after *DATA* and fail it it does not.
 * Setting `TESTSPAM` will add the [GTUBE](https://en.wikipedia.org/wiki/GTUBE) anti-spam test string to the mail body. It will also change to test's logic to succeed if server rejects our mail after *DATA* and fail it it does not.
